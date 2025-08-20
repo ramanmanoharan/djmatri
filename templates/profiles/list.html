@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+     .all-pro-head {
+      margin-top: 0px!important;
+    }
+</style>
+<h2>Search Results</h2>
+
+<!-- Banner / Heading -->
+<section>
+    <div class="all-pro-head">
+        <div class="container">
+            <div class="row">
+                <h1>Lakhs of Happy Marriages</h1>
+                <a href="#">{{ company.name }} <i class="fa fa-handshake-o" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    <!--FILTER ON MOBILE VIEW-->
+    <div class="fil-mob fil-mob-act">
+        <h4>Profile filters <i class="fa fa-filter" aria-hidden="true"></i></h4>
+    </div>
+</section>
+<section>
+    <div class="wedd m-tp">
+        <div class="container">
+        <!-- Profiles Table -->
+<table cellspacing="0" rules="all" border="1"
+       style="border-color:White;width:100%;max-width:100%;margin:auto;border-collapse:collapse;">
+    <thead>
+        <tr style="background: rgb(255, 22, 108);color:white;">
+            <th>S.No</th>
+            <th>Reg.No</th>
+            <th>Name</th>
+            <th>Caste</th>
+            <th>Sub Caste</th>
+            <th>Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in page_obj %}
+        <tr style="height:30px; {% cycle '' 'background-color:#F1FADC;' %}">
+            <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
+           <td>
+                <a href="{% url 'profile_detail' pk=p.pk slug=p.slug %}" target="_blank">
+                    {% if p.gender and p.gender.name|lower == "male" %}
+                        M00{{ p.id }}
+                    {% elif p.gender and p.gender.name|lower == "female" %}
+                        F00{{ p.id }}
+                    {% else %}
+                        {{ p.id }}
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'profile_detail' pk=p.pk slug=p.slug %}" target="_blank">
+                    {{ p.full_name }}
+                </a>
+            </td>
+            <td>{{ p.caste }}</td>
+            <td>{{ p.subcaste }}</td>
+            <td>
+                <a href="{% url 'profile_detail' pk=p.pk slug=p.slug %}" target="_blank">
+                    {% if p.photo %}
+                        <img src="{{ p.photo.url }}" alt="{{ p.full_name }}" style="width:120px;">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="No Image" style="width:120px;">
+                    {% endif %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" style="text-align:center;">No profiles found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<div style="margin-top:20px; text-align:center;">
+    <ul style="list-style:none;display:inline-flex;gap:10px;padding:0;">
+        {% if page_obj.has_previous %}
+            <li><a href="?page=1">First</a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li><strong>{{ i }}</strong></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            <li><a href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+        {% endif %}
+    </ul>
+</div>                
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}

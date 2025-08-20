@@ -1,0 +1,23 @@
+<div class="head-top">
+    <div class="container">
+        <div class="row">
+            <div class="lhs">
+                <ul>
+                    <li><a href="#!" class="ser-open"><i class="fa fa-search"></i></a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+            <div class="rhs">
+                <ul>
+                    {% if company.phone %}
+                        <li><a href="tel:{{ company.phone }}"><i class="fa fa-phone"></i>&nbsp;{{ company.phone }}</a></li>
+                    {% endif %}
+                    {% if company.email %}
+                        <li><a href="mailto:{{ company.email }}"><i class="fa fa-envelope-o"></i>&nbsp;{{ company.email }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

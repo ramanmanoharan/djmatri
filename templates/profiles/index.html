@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Home | {{ company.name|default:"Matrimony Service" }}{% endblock %}
+
+{% block content %}
+{% include 'header.html' %}
+
+<!-- Banner & Search -->
+<section class="banner-section">
+    <div class="hom-head">
+        <div class="container">
+            <div class="row">
+                <div class="hom-ban">
+                    <div class="ban-tit">
+                        <span><i class="no1">#1</i> Matrimony</span>
+                        <h1>Find your<br><b>Right Match</b> here</h1>
+                        <p>{{ company.tagline|default:"Most trusted Matrimony Brand in the World." }}</p>
+                    </div>
+                    <div class="ban-search chosenini">
+                        <form method="get" action="{% url 'profiles:list' %}">
+                            <ul>
+                                <li>
+                                    <label>Gender</label>
+                                    {% render_field form.gender class="form-select" %}
+                                </li>
+                                <li>
+                                    <label>Caste</label>
+                                    {% render_field form.caste class="form-select" %}
+                                </li>
+                                <li>
+                                    <label>Subcaste</label>
+                                    {% render_field form.subcaste class="form-select" %}
+                                </li>
+                                <li>
+                                    <label>Age Min</label>
+                                    {% render_field form.age_min class="form-control" %}
+                                </li>
+                                <li>
+                                    <label>Age Max</label>
+                                    {% render_field form.age_max class="form-control" %}
+                                </li>
+                                <li>
+                                    <input type="submit" value="Search" class="btn btn-primary mt-4">
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Profile Slider -->
+<section class="profile-slider py-5">
+    <div class="container">
+        <div class="home-tit">
+            <h2><span>Latest Profiles</span></h2>
+        </div>
+        <div class="row">
+            {% for p in latest_profiles %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if p.photo %}
+                        <img src="{{ p.photo.url }}" class="card-img-top" alt="{{ p.full_name }}">
+                    {% else %}
+                        <img src="{% static 'placeholder.jpg' %}" class="card-img-top" alt="No Photo">
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title">{{ p.full_name }}</h6>
+                        <p class="text-muted small mb-1">{{ p.age|default:"-" }} yrs • {{ p.language }}</p>
+                        <p class="text-muted small">{{ p.education }}</p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary w-100">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <p class="text-center">No profiles available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Profile Listing with Pagination -->
+<section class="profile-listing py-5">
+    <div class="container">
+        <div class="row g-3">
+            {% for p in page_obj.object_list %}
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    {% if p.photo %}
+                        <img src="{{ p.photo.url }}" class="card-img-top" alt="{{ p.full_name }}">
+                    {% else %}
+                        <img src="{% static 'placeholder.jpg' %}" class="card-img-top" alt="No Photo">
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title">{{ p.full_name }}</h6>
+                        <p class="text-muted small">{{ p.age|default:"-" }} yrs • {{ p.language }}</p>
+                        <p class="text-muted small">{{ p.education }}</p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary w-100">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <p>No profiles found.</p>
+            {% endfor %}
+        </div>
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</section>
+
+{% include 'footer.html' %}
+{% endblock %}

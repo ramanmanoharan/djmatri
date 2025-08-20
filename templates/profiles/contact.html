@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section>
+    <div class="str">
+        <div class="ban-inn ab-ban pg-cont">
+            <div class="container">
+                <div class="row">
+                    <div class="hom-ban">
+                        <div class="ban-tit text-center">
+                            <img src="{{ company.logo.url }}" alt="Logo" style="height:60px;">
+                            <h1>Contact Us</h1>
+                            <p>Most Trusted and premium Matrimony Service in the World.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="ab-sec2 pg-cont">
+        <div class="container">
+            <div class="row">
+                <ul>
+                    <li>
+                        <div class="we-here">
+                            <h3>Our Office</h3>
+                            <p>Most Trusted and premium Matrimony Service in the World.</p>
+                            <span><i class="fa fa-phone"></i>{{ company.phone1 }}</span><br>
+                            <span><i class="fa fa-envelope-o"></i> {{ company.email }}</span><br>
+                            <span><i class="fa fa-map-marker"></i> {{ company.address }}.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="we-cont">
+                            <img src="{% static 'images/icon/trust.png' %}" alt="">
+                            <h4>Customer Relations</h4>
+                            <p>We are here to help you anytime.</p>
+                            <a href="tel:{{ company.phone1 }}" class="cta-rou-line">Get Support</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="we-cont">
+                            <img src="{% static 'images/icon/telephone.png' %}" alt="">
+                            <h4>WhatsApp Support</h4>
+                            <p>Chat with us instantly on WhatsApp.</p>
+                            <a href="https://wa.me/{{ company.phone1 }}" class="cta-rou-line">Talk to Sales</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Contact Form -->
+           <!--  <div class="row mt-5">
+                <div class="col-md-8 offset-md-2">
+                    <h3 class="text-center">Send us a message</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success mt-3">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div> -->
+            <div class="col-md-12">
+                <iframe src="{{seo.iframe_map|safe}}"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

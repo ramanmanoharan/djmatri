@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section>
+        <div class="str">
+            <div class="ban-inn ab-ban">
+                <div class="container">
+                    <div class="row">
+                        <div class="hom-ban">
+                            <div class="ban-tit">
+                                <span><i class="no1">#1</i> Wedding Website</span>
+                                <h1>About us</h1>
+                                <p>Most Trusted and premium Matrimony Service in the World.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section>
+    <div class="ab-sec2">
+        <div class="container">
+            <div class="row">
+                <ul>
+                    <li>
+                        <div>
+                            <img src="{% static 'images/icon/prize.png' %}" alt="">
+                            <h4>Genuine profiles</h4>
+                            <p>The most trusted wedding matrimony brand</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="{% static 'images/icon/trust.png' %}" alt="">
+                            <h4>Most trusted</h4>
+                            <p>The most trusted wedding matrimony brand</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="{% static 'images/icon/rings.png' %}" alt="">
+                            <h4>2000+ weddings</h4>
+                            <p>The most trusted wedding matrimony brand</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="ab-wel">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ab-wel-lhs">
+                        <span class="ab-wel-3"></span>
+
+                        {% if about.image1 %}
+                        <img src="{{ about.image1.url }}" alt="" class="ab-wel-1">
+                        {% endif %}
+
+                        {% if about.image2 %}
+                        <img src="{{ about.image2.url }}" alt="" class="ab-wel-2">
+                        {% endif %}
+
+                        <span class="ab-wel-4"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ab-wel-rhs">
+                        <div class="ab-wel-tit">
+                            <h2>Welcome to <em>Wedding matrimony</em></h2>
+                            <p>{{ about.description }}</p>
+                            <p><a href="{% url 'profile_search' %}">Click here</a> to start your matrimony service now.</p>
+                            <p>{{ about.long_desc }}</p>
+                        </div>
+
+                        <div class="ab-wel-tit-2">
+                            <ul>
+                                <li>
+                                    <div>
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        <h4>Enquiry <em>{{ about.phone }}</em></h4>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                        <h4>Get Support <em>{{ about.email }}</em></h4>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ <!-- START -->
+    <section>
+        <div class="ab-cont">
+            <div class="container">
+                <div class="row">
+                    <ul>
+                        <li>
+                            <div class="ab-cont-po">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                <div>
+                                    <h4>2K</h4>
+                                    <span>Couples pared</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ab-cont-po">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <div>
+                                    <h4>4000+</h4>
+                                    <span>Registered users</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ab-cont-po">
+                                <i class="fa fa-male" aria-hidden="true"></i>
+                                <div>
+                                    <h4>1600+</h4>
+                                    <span>Mens</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ab-cont-po">
+                                <i class="fa fa-female" aria-hidden="true"></i>
+                                <div>
+                                    <h4>2000+</h4>
+                                    <span>Womens</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
+{% endblock %}

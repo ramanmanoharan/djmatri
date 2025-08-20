@@ -1,0 +1,65 @@
+[
+  {
+    "model": "profiles.profile",
+    "pk": 1,
+    "fields": {
+      "full_name": "Arun Kumar",
+      "gender": 1,
+      "caste": 1,
+      "subcaste": 1,
+      "age": 29,
+      "language": "Tamil",
+      "education": "BE",
+      "occupation": "Software Engineer",
+      "income": "\u20b910L",
+      "city": "Chennai",
+      "state": "TN",
+      "country": "India",
+      "about": "Friendly and family-oriented.",
+      "approved": true,
+      "slug": "arun-kumar-1"
+    }
+  },
+  {
+    "model": "profiles.profile",
+    "pk": 2,
+    "fields": {
+      "full_name": "Divya S",
+      "gender": 2,
+      "caste": 2,
+      "subcaste": 2,
+      "age": 26,
+      "language": "Tamil",
+      "education": "MBA",
+      "occupation": "Marketing Manager",
+      "income": "\u20b99L",
+      "city": "Coimbatore",
+      "state": "TN",
+      "country": "India",
+      "about": "Loves music and books.",
+      "approved": true,
+      "slug": "divya-s-2"
+    }
+  },
+  {
+    "model": "profiles.profile",
+    "pk": 3,
+    "fields": {
+      "full_name": "Rahul R",
+      "gender": 1,
+      "caste": 3,
+      "subcaste": 3,
+      "age": 31,
+      "language": "Tamil",
+      "education": "M.Tech",
+      "occupation": "Data Scientist",
+      "income": "\u20b918L",
+      "city": "Bengaluru",
+      "state": "KA",
+      "country": "India",
+      "about": "Tech enthusiast.",
+      "approved": true,
+      "slug": "rahul-r-3"
+    }
+  }
+]

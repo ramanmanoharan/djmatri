@@ -1,0 +1,26 @@
+[
+  {
+    "model": "profiles.subcaste",
+    "pk": 1,
+    "fields": {
+      "caste": 1,
+      "name": "Vellalar"
+    }
+  },
+  {
+    "model": "profiles.subcaste",
+    "pk": 2,
+    "fields": {
+      "caste": 2,
+      "name": "Iyer"
+    }
+  },
+  {
+    "model": "profiles.subcaste",
+    "pk": 3,
+    "fields": {
+      "caste": 3,
+      "name": "Vanniyar"
+    }
+  }
+]

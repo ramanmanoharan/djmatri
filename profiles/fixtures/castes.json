@@ -1,0 +1,23 @@
+[
+  {
+    "model": "profiles.caste",
+    "pk": 1,
+    "fields": {
+      "name": "BC"
+    }
+  },
+  {
+    "model": "profiles.caste",
+    "pk": 2,
+    "fields": {
+      "name": "OC"
+    }
+  },
+  {
+    "model": "profiles.caste",
+    "pk": 3,
+    "fields": {
+      "name": "MBC"
+    }
+  }
+]

@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% block content %}
+<section> 
+    <div class="str">
+        <div class="hom-head">
+            <div class="container">
+                <div class="row">
+                    <div class="hom-ban">
+                        <div class="ban-tit">
+                            <span><i class="no1">#1</i> Matrimony</span>
+                            <h1>Find your<br><b>Right Match</b> here</h1>
+                            <p>Most trusted Matrimony Brand in the World.</p>
+                        </div>
+
+                        <div class="ban-search chosenini">
+                           <form method="get" action="{% url 'profile_list' %}">
+                                <div class="row g-3">
+                                    <div class="col-md-2">
+                                        <label>I'm looking for</label>
+                                        {{ form.gender }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Caste</label>
+                                        {{ form.caste }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Subcaste</label>
+                                        {{ form.subcaste }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Min Age</label>
+                                        {{ form.age_min }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Max Age</label>
+                                        {{ form.age_max }}
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-primary w-100">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- BANNER SLIDER -->
+{% load static %}
+<section>
+    <div class="hom-ban-sli">
+        <div>
+            <ul class="ban-sli">
+                {% for slide in sliders %}
+                <li>
+                    <div class="image">
+                        <img src="{{ slide.image.url }}" alt="{{ slide.title }}" loading="lazy" style="height: 536px;">
+                    </div>
+                </li>
+                {% empty %}
+                <!-- fallback if no slider found -->
+                <li>
+                    <div class="image">
+                        <img src="{% static 'images/default-banner.jpg' %}" alt="Default Banner" loading="lazy" style="height: 536px;">
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- END -->
+ <!-- QUICK ACCESS -->
+   <section>
+    <div class="str home-acces-main">
+        <div class="container">
+            <div class="row">
+                <!-- BACKGROUND SHAPE -->
+                <div class="wedd-shap">
+                    <span class="abo-shap-1"></span>
+                    <span class="abo-shap-4"></span>
+                </div>
+                <!-- END BACKGROUND SHAPE -->
+
+                <div class="home-tit">
+                    <p>Quick Access</p>
+                    <h2><span>Our Services</span></h2>
+                    <span class="leaf1"></span>
+                    <span class="tit-ani-"></span>
+                </div>
+
+                <div class="home-acces">
+                    <ul class="hom-qui-acc-sli">
+                        {% for service in services %}
+                        <li>
+                            <div class="wow fadeInUp hacc hacc{{ forloop.counter }}" data-wow-delay="0.{{ forloop.counter }}s">
+                                <div class="con">
+                                    {% if service.icon %}
+                                        <img src="{{ service.icon.url }}" alt="{{ service.title }}" loading="lazy">
+                                    {% else %}
+                                        <img src="{% static 'images/icon/default.png' %}" alt="Default Icon">
+                                    {% endif %}
+                                    <h4>{{ service.title }}</h4>
+                                    <p>{{ service.short_desc }}</p>
+                                    <!-- <a href="{% url 'service_detail' service.id %}">View more</a> -->
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li><p>No services available.</p></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- profile list -->
+<!-- RECENT COUPLES / PROFILES -->
+<section>
+    <div class="hom-couples-all">
+        <div class="container">
+            <div class="row">
+                <div class="home-tit">
+                    <p>Trusted brand</p>
+                    <h2><span>Profiles</span></h2>
+                    <span class="leaf1"></span>
+                    <span class="tit-ani-"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hom-coup-test">
+            <ul class="couple-sli">
+                {% for profile in recent_profiles %}
+                <li>
+                    <div class="hom-coup-box">
+                        <span class="leaf"></span>
+                        
+                        {% if profile.photo %}
+                            <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" loading="lazy">
+                        {% else %}
+                            <img src="{% static 'images/default-profile.jpg' %}" alt="Default Profile" loading="lazy">
+                        {% endif %}
+
+                        <div class="bx">
+                            <h4>{{ profile.name }} 
+                                {% if profile.city %}<span>{{ profile.city }}</span>{% endif %}
+                            </h4>
+                            <a href="{% url 'profile_detail' profile.id profile.slug %}" class="sml-cta cta-dark">View more</a>
+                        </div>
+                    </div>
+                </li>
+                {% empty %}
+                <li><p>No profiles found.</p></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- END -->
+<!-- CUSTOMER REVIEWS -->
+<section>
+    <div class="hom-cus-revi">
+        <div class="container">
+            <div class="row">
+                <div class="home-tit">
+                    <p>happy stories</p>
+                    <h2><span>Trusted by <b class="num">1500+</b> Couples</span></h2>
+                    <span class="leaf1"></span>
+                    <span class="tit-ani-"></span>
+                </div>
+            </div>
+        </div>
+        <div class="slid-inn cus-revi">
+            <ul class="slider3">
+                <li>
+                    <div class="cus-revi-box">
+                        <div class="revi-im">
+                            <img src="{% static 'images/user/1.jpg' %}" alt="Happy Couple" loading="lazy">
+                            <i class="cir-com cir-1"></i>
+                            <i class="cir-com cir-2"></i>
+                            <i class="cir-com cir-3"></i>
+                        </div>
+                        <p>“Thanks to this matrimony site, I found my perfect partner.
+                           We connected instantly and tied the knot in just 6 months!”</p>
+                        <h5>Priya & Karthik</h5>
+                        <span>Chennai</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="cus-revi-box">
+                        <div class="revi-im">
+                            <img src="{% static 'images/user/2.jpg' %}" alt="Matrimony Couple" loading="lazy">
+                            <i class="cir-com cir-1"></i>
+                            <i class="cir-com cir-2"></i>
+                            <i class="cir-com cir-3"></i>
+                        </div>
+                        <p>“We matched based on similar interests and family values. 
+                           Couldn’t have asked for a better life partner. Highly recommend this portal!”</p>
+                        <h5>Rahul & Sneha</h5>
+                        <span>Bangalore</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="cus-revi-box">
+                        <div class="revi-im">
+                            <img src="{% static 'images/user/3.jpg' %}" alt="Wedding Couple" loading="lazy">
+                            <i class="cir-com cir-1"></i>
+                            <i class="cir-com cir-2"></i>
+                            <i class="cir-com cir-3"></i>
+                        </div>
+                        <p>“Our families met through this site and everything clicked perfectly. 
+                           Thank you for helping us find true love.”</p>
+                        <h5>Anjali & Mohan</h5>
+                        <span>Hyderabad</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="cus-revi-box">
+                        <div class="revi-im">
+                            <img src="{% static 'images/user/4.jpg' %}" alt="Couple Matrimony" loading="lazy">
+                            <i class="cir-com cir-1"></i>
+                            <i class="cir-com cir-2"></i>
+                            <i class="cir-com cir-3"></i>
+                        </div>
+                        <p>“Safe, secure, and genuine profiles. We are happily married today because of this matrimony.”</p>
+                        <h5>Deepak & Kavya</h5>
+                        <span>Delhi</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="cta-full-wid">
+            <a href="#!" class="cta-dark">More success stories</a>
+        </div>
+    </div>
+</section>
+<!-- END -->
+
+<!-- profile list end -->
+<!-- BANNER -->
+    <section>
+        <div class="str">
+            <div class="ban-inn ban-home">
+                <div class="container">
+                    <div class="row">
+                        <div class="hom-ban">
+                            <div class="ban-tit">
+                                <span><i class="no1">#1</i> Wedding Website</span>
+                                <h2>Why choose us</h2>
+                                <p>Most Trusted and premium Matrimony Service in the World.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
+
+{% endblock %}

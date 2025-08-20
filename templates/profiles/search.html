@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<section>
+    <div class="all-pro-head">
+        <div class="container">
+            <div class="row">
+                <h1>Search Profile</h1>
+                <a href="#">{{ company.name }} <i class="fa fa-handshake-o" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    <!--FILTER ON MOBILE VIEW-->
+    <div class="fil-mob fil-mob-act">
+        <h4>Profile filters <i class="fa fa-filter" aria-hidden="true"></i></h4>
+    </div>
+</section>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6" style="margin-top: 50px;">
+            <form method="get" action="{% url 'profile_list' %}">
+                <div class="mb-2">
+                    <label class="form-label">Gender</label>
+                    {% render_field form.gender class="form-select" %}
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Caste</label>
+                    {% render_field form.caste class="form-select" %}
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Subcaste</label>
+                    {% render_field form.subcaste class="form-select" %}
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-2">
+                        <label class="form-label">Age Min</label>
+                        {% render_field form.age_min class="form-control" %}
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">Age Max</label>
+                        {% render_field form.age_max class="form-control" %}
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-2">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
