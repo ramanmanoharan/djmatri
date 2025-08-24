@@ -326,6 +326,36 @@
                 height:35px!important;
                 width:auto!important;
         }
+    }
+    /* Mobile fix for sibling table */
+        @media (max-width: 768px) {
+          .siblings-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;   /* allow smooth horizontal scroll */
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .siblings-table table {
+            min-width: 500px;   /* ensure table doesn't collapse */
+          }
+
+          .siblings-table th,
+          .siblings-table td {
+            font-size: 12px;   /* smaller font on mobile */
+            padding: 6px;
+          }
+           .chart-box {
+                border: 1px solid #ccc;
+                padding: 0!important;
+                margin-bottom: -110px!important;
+            }
+            .horoscope-container{
+                margin-bottom: -80px!important;
+            }
+        }
+
+
 
         /* Print Styles - Ensures single page without alignment changes */
         
@@ -365,8 +395,8 @@
       }
 
       img.profile-photo {
-        width: 35mm !important;
-        height: 40mm !important;
+        width: 25mm !important;
+        height: auto !important;
         object-fit: cover !important;
         border: 1px solid #2a5298 !important;
       }
@@ -594,61 +624,35 @@
 <table>
 <tr>
 <td colspan="6">
-<table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #555555;" width="100%">
-<tbody>
-<tr style="height: 20px; vertical-align: middle; background-color: #f0f0f0;">
-<th style="width: 150px; padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    Relationship
-                                </th>
-<th style="width: 90px; padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    Elder Brother
-                                </th>
-<th style="width: 90px; padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    Younger Brother
-                                </th>
-<th style="width: 120px; padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    Elder Sister
-                                </th>
-<th style="width: 120px; padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    Younger Sister
-                                </th>
-</tr>
-<tr style="height: 20px; vertical-align: middle;">
-<td style="padding: 8px; text-align: center; border: 1px solid #555555; font-weight: bold;">
-                                    Married
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.elder_brother.married|default:"0" }}
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.younger_brother.married|default:"0" }}
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.elder_sister.married|default:"0" }}
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.younger_sister.married|default:"0" }}
-                                </td>
-</tr>
-<tr style="height: 20px; vertical-align: middle;">
-<td style="padding: 8px; text-align: center; border: 1px solid #555555; font-weight: bold;">
-                                    Unmarried
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.elder_brother.unmarried|default:"0" }}
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.younger_brother.unmarried|default:"0" }}
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.elder_sister.unmarried|default:"0" }}
-                                </td>
-<td style="padding: 8px; text-align: center; border: 1px solid #555555;">
-                                    {{ sibling_counts.younger_sister.unmarried|default:"0" }}
-                                </td>
-</tr>
-</tbody>
-</table>
+<h3>Siblings Detailed Information</h3>
+<div class="siblings-table">
+  <table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #555555;" width="100%">
+    <tbody>
+      <tr style="height: 20px; vertical-align: middle; background-color: #f0f0f0;">
+        <th>Relationship</th>
+        <th>Elder Brother</th>
+        <th>Younger Brother</th>
+        <th>Elder Sister</th>
+        <th>Younger Sister</th>
+      </tr>
+      <tr>
+        <td><b>Married</b></td>
+        <td>{{ sibling_counts.elder_brother.married|default:"0" }}</td>
+        <td>{{ sibling_counts.younger_brother.married|default:"0" }}</td>
+        <td>{{ sibling_counts.elder_sister.married|default:"0" }}</td>
+        <td>{{ sibling_counts.younger_sister.married|default:"0" }}</td>
+      </tr>
+      <tr>
+        <td><b>Unmarried</b></td>
+        <td>{{ sibling_counts.elder_brother.unmarried|default:"0" }}</td>
+        <td>{{ sibling_counts.younger_brother.unmarried|default:"0" }}</td>
+        <td>{{ sibling_counts.elder_sister.unmarried|default:"0" }}</td>
+        <td>{{ sibling_counts.younger_sister.unmarried|default:"0" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </td>
 </tr>
 </table>
@@ -675,11 +679,11 @@
 <table>
 <tr>
 <td><strong>Height:</strong></td>
-<td>{{ profile.height_cm|default:"-" }}</td>
+<td>{{ profile.height_cm|default:"-" }} cm</td>
 </tr>
 <tr>
 <td><strong>Weight:</strong></td>
-<td>{{ profile.weight_kg|default:"-" }}</td>
+<td>{{ profile.weight_kg|default:"-" }} kg</td>
 </tr>
 <tr>
 <td><strong>Complexion:</strong></td>
