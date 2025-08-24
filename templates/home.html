@@ -110,7 +110,9 @@
                             </div>
                         </li>
                         {% empty %}
-                        <li><p>No services available.</p></li>
+                        <li>
+                            <p class="empty-message">Will Soon Update the Date here!.</p>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -127,7 +129,7 @@
             <div class="row">
                 <div class="home-tit">
                     <p>Trusted brand</p>
-                    <h2><span>Profiles</span></h2>
+                    <h2><span>Female Profiles</span></h2>
                     <span class="leaf1"></span>
                     <span class="tit-ani-"></span>
                 </div>
@@ -136,7 +138,47 @@
 
         <div class="hom-coup-test">
             <ul class="couple-sli">
-                {% for profile in recent_profiles %}
+                {% for profile in recent_female_profiles %}
+                <li>
+                    <div class="hom-coup-box">
+                        <span class="leaf"></span>
+                        
+                        {% if profile.photo %}
+                            <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" loading="lazy">
+                        {% else %}
+                            <img src="{% static 'images/default-profile.jpg' %}" alt="Default Profile" loading="lazy">
+                        {% endif %}
+
+                        <div class="bx">
+                            <h4>{{ profile.name }} 
+                                {% if profile.city %}<span>{{ profile.city }}</span>{% endif %}
+                            </h4>
+                            <a href="{% url 'profile_detail' profile.id profile.slug %}" class="sml-cta cta-dark">View more</a>
+                        </div>
+                    </div>
+                </li>
+                {% empty %}
+                <li>
+                    <p class="empty-message">Will Soon Update the Date here!.</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="home-tit">
+                    <p>Trusted brand</p>
+                    <h2><span>Male Profiles</span></h2>
+                    <span class="leaf1"></span>
+                    <span class="tit-ani-"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hom-coup-test">
+            <ul class="couple-sli">
+                {% for profile in recent_male_profiles %}
                 <li>
                     <div class="hom-coup-box">
                         <span class="leaf"></span>

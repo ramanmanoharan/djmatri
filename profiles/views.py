@@ -9,14 +9,17 @@ def home(request):
     sliders = Slider.objects.all()
     services = Service.objects.all()
     reviews = Review.objects.all()
-    recent_profiles = Profile.objects.filter(approved=True)[:12]
+    # recent_profiles = Profile.objects.filter(approved=True)[:12]
+    recent_male_profiles = Profile.objects.filter(approved=True, gender__name="Male").order_by("?")[:6]
+    recent_female_profiles = Profile.objects.filter(approved=True, gender__name="Female").order_by("?")[:6]
     blogs = BlogPost.objects.order_by('-date')[:3]
     form = FilterForm(request.GET or None)
     return render(request, 'home.html', {
         'sliders': sliders,
         'services': services,
         'reviews': reviews,
-        'recent_profiles': recent_profiles,
+        'recent_male_profiles': recent_male_profiles,
+        'recent_female_profiles': recent_female_profiles,
         'blogs': blogs,
         'form': form,
     })
