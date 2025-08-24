@@ -28,8 +28,10 @@
     <div class="wedd m-tp">
         <div class="container">
         <!-- Profiles Table -->
+<!-- Profiles Table -->
+<div style="overflow-x:auto; width:100%;">
 <table cellspacing="0" rules="all" border="1"
-       style="border-color:White;width:100%;max-width:100%;margin:auto;border-collapse:collapse;">
+       style="border-color:White;width:100%;min-width:600px;margin:auto;border-collapse:collapse;">
     <thead>
         <tr style="background: rgb(255, 22, 108);color:white;">
             <th>S.No</th>
@@ -44,7 +46,7 @@
         {% for p in page_obj %}
         <tr style="height:30px; {% cycle '' 'background-color:#F1FADC;' %}">
             <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
-           <td>
+            <td>
                 <a href="{% url 'profile_detail' pk=p.pk slug=p.slug %}" target="_blank">
                     {% if p.gender and p.gender.name|lower == "male" %}
                         M00{{ p.id }}
@@ -65,9 +67,9 @@
             <td>
                 <a href="{% url 'profile_detail' pk=p.pk slug=p.slug %}" target="_blank">
                     {% if p.photo %}
-                        <img src="{{ p.photo.url }}" alt="{{ p.full_name }}" style="width:120px;">
+                        <img src="{{ p.photo.url }}" alt="{{ p.full_name }}" style="width:120px; height:auto;">
                     {% else %}
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="No Image" style="width:120px;">
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="No Image" style="width:120px; height:auto;">
                     {% endif %}
                 </a>
             </td>
@@ -79,6 +81,8 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
+
 
 <!-- Pagination -->
 <div style="margin-top:20px; text-align:center;">
