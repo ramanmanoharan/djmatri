@@ -48,10 +48,62 @@
             transform: initial!important;
         }
     }
+    .filter-options {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center;
+    }
+    .filter-options li {
+        margin: 8px 0;
+    }
+    .filter-options a {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #ff166c;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .filter-options a:hover {
+        background: #d9125a;
+    }
+
+    /* ====== Deterrent CSS (best-effort) ====== */
+/* 1) Disable selection globally but allow forms to work */
+.no-select { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.no-select input, .no-select textarea, .no-select [contenteditable="true"], .allow-select { -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
+
+
+/* 2) Images: avoid drag + clicks directly on <img> */
+img.no-drag { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+
+
+/* 3) Optional overlay wrapper to guard images */
+.img-guard { position: relative; display: inline-block; line-height: 0; border-radius: 10px; overflow: hidden; }
+.img-guard::after { content: ""; position: absolute; inset: 0; pointer-events: auto; background: transparent; }
+
+
+/* 4) Optional watermark on guarded images */
+.img-guard.watermarked::before {
+content: "© Protected";
+position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; font-size: 24px; color: rgba(255,255,255,0.25); transform: rotate(-18deg);
+pointer-events: none; user-select: none;
+}
+
+
+/* 5) Background-image delivery option */
+.bg-image-protected { background-size: cover; background-position: center; border-radius: 10px; position: relative; }
+.bg-image-protected::after { content: ""; position: absolute; inset: 0; background: transparent; pointer-events: auto; }
+</style>
+<!-- END: Copy/Download deterrent styles -->
     </style>
 </head>
 
-<body>
+<body class="no-select" oncontextmenu="return false">
       <!-- PRELOADER -->
     <div id="preloader">
       <div class="plod">
@@ -135,9 +187,9 @@
                     <!-- MOBILE MENU ICON -->
                     <div class="mob-menu">
                         <div class="mob-me-ic">
-                            <span class="ser-open mobile-ser">
+                          <!--   <span class="ser-open mobile-ser">
                                 <img src="{% static 'images/icon/search.svg' %}" alt="">
-                            </span>
+                            </span> -->
                             <span class="mobile-menu" data-mob="mobile">
                                 <img src="{% static 'images/icon/menu.svg' %}" alt="">
                             </span>
@@ -317,7 +369,68 @@ $(document).ready(function () {
         }
     });
 });
+function toggleFilter() {
+    const filterBox = document.getElementById("filter-options");
+    filterBox.style.display = (filterBox.style.display === "block") ? "none" : "block";
+}
 </script>
 
+
+<!-- BEGIN: Copy/Download deterrent scripts -->
+<script>
+// 1) Block context menu everywhere (already disabled on <body>, this is extra safety)
+document.addEventListener('contextmenu', function (e) { e.preventDefault(); }, { capture: true });
+
+
+// 2) Prevent dragging (esp. images)
+document.addEventListener('dragstart', function (e) { e.preventDefault(); }, { capture: true });
+
+
+// 3) Intercept copy – replace clipboard content
+document.addEventListener('copy', function (e) {
+try {
+e.preventDefault();
+const msg = 'Copy disabled on this site.';
+if (e.clipboardData) {
+e.clipboardData.setData('text/plain', msg);
+} else if (window.clipboardData) { // IE legacy
+window.clipboardData.setData('Text', msg);
+}
+} catch (_) {}
+});
+
+
+// 4) Block common shortcuts (Ctrl/Cmd+S,U,P,C,X,A,I,J,K) and F12
+document.addEventListener('keydown', function (e) {
+const k = (e.key || '').toLowerCase();
+const blockedCombos = ['s','u','p','c','x','a','i','j','k'];
+if ((e.ctrlKey || e.metaKey) && blockedCombos.includes(k)) { e.preventDefault(); e.stopPropagation(); return false; }
+if (e.keyCode === 123) { e.preventDefault(); return false; } // F12
+}, { capture: true });
+
+
+// 5) Make all <img> elements non-interactive without touching layout
+document.querySelectorAll('img').forEach(function(img){
+img.setAttribute('draggable','false');
+img.classList.add('no-drag');
+img.addEventListener('contextmenu', function(ev){ ev.preventDefault(); }, { passive: false });
+});
+
+
+// 6) Optional: blur when DevTools likely opened (heuristic only)
+(function devtoolsDeterrent(){
+let threshold = 160;
+const blur = () => document.documentElement.style.filter = 'blur(2.5px)';
+const unblur = () => document.documentElement.style.filter = '';
+let last = false;
+function check(){
+const opened = (window.outerWidth - window.innerWidth > threshold) || (window.outerHeight - window.innerHeight > threshold);
+if (opened !== last) { last = opened; if (opened) blur(); else unblur(); }
+requestAnimationFrame(check);
+}
+requestAnimationFrame(check);
+})();
+</script>
+<!-- END: Copy/Download deterrent scripts -->
 </body>
 </html>

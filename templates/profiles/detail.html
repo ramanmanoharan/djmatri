@@ -499,16 +499,41 @@
         padding-right: 5px!important;
     }
 }
+
+
+/* === Disable text selection globally === */
+.no-select {
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+-webkit-touch-callout: none;
+}
+/* Allow selection in form fields */
+input, textarea, [contenteditable="true"], .allow-select {
+-webkit-user-select: text;
+-moz-user-select: text;
+-ms-user-select: text;
+user-select: text;
+}
+
+
+/* Prevent image dragging */
+img.no-drag {
+-webkit-user-drag: none;
+user-drag: none;
+pointer-events: none;
+}
 </style>
 </head>
-<body>
+<body class="no-select" oncontextmenu="return false">
 <div class="container">
 <div class="header">
 <div class="logo-container">
             {% if company.logo %}
-                <img alt="{{ company.name }} Logo" src="{{ company.logo.url }}"/>
+                <img alt="{{ company.name }} Logo" class="no-drag" src="{{ company.logo.url }}"/>
             {% else %}
-                <img alt="Matrimony Logo" src="{% static 'images/logo.png' %}"/>
+                <img alt="Matrimony Logo" class="no-drag" src="{% static 'images/logo.png' %}"/>
             {% endif %}
            <!--  <div>
                 <h1 class="company-name">{{ company.name|default:"PREMIUM MATRIMONY" }}</h1>
@@ -567,11 +592,11 @@
 </div>
 <div class="profile-photo-container">
                 {% if show_photo1 and profile.photo %}
-                    <img alt="Profile Photo" class="profile-photo" src="{{ profile.photo.url }}"/>
+                    <img alt="Profile Photo" class="profile-photo no-drag" src="{{ profile.photo.url }}"/>
                 {% elif profile.photo2 %}
-                    <img alt="Profile Photo" class="profile-photo" src="{{ profile.photo2.url }}"/>
+                    <img alt="Profile Photo" class="profile-photo no-drag" src="{{ profile.photo2.url }}"/>
                 {% else %}
-                    <img alt="Profile Photo" class="profile-photo" src="{% static 'images/default_profile.jpg' %}"/>
+                    <img alt="Profile Photo" class="profile-photo no-drag" src="{% static 'images/default_profile.jpg' %}"/>
                 {% endif %}
                 <div class="profile-id-badge">
                   {% if profile.photo and profile.photo2 %}
@@ -806,5 +831,63 @@
             </div>
 </div>
 </div>
+
+
+<!-- BEGIN: Copy/Download deterrent scripts -->
+<script>
+// 1) Block context menu everywhere (already disabled on <body>, this is extra safety)
+document.addEventListener('contextmenu', function (e) { e.preventDefault(); }, { capture: true });
+
+
+// 2) Prevent dragging (esp. images)
+document.addEventListener('dragstart', function (e) { e.preventDefault(); }, { capture: true });
+
+
+// 3) Intercept copy – replace clipboard content
+document.addEventListener('copy', function (e) {
+try {
+e.preventDefault();
+const msg = 'Copy disabled on this site.';
+if (e.clipboardData) {
+e.clipboardData.setData('text/plain', msg);
+} else if (window.clipboardData) { // IE legacy
+window.clipboardData.setData('Text', msg);
+}
+} catch (_) {}
+});
+
+
+// 4) Block common shortcuts (Ctrl/Cmd+S,U,P,C,X,A,I,J,K) and F12
+document.addEventListener('keydown', function (e) {
+const k = (e.key || '').toLowerCase();
+const blockedCombos = ['s','u','c','x','a','i','j','k'];
+if ((e.ctrlKey || e.metaKey) && blockedCombos.includes(k)) { e.preventDefault(); e.stopPropagation(); return false; }
+if (e.keyCode === 123) { e.preventDefault(); return false; } // F12
+}, { capture: true });
+
+
+// 5) Make all <img> elements non-interactive without touching layout
+document.querySelectorAll('img').forEach(function(img){
+img.setAttribute('draggable','false');
+img.classList.add('no-drag');
+img.addEventListener('contextmenu', function(ev){ ev.preventDefault(); }, { passive: false });
+});
+
+
+// 6) Optional: blur when DevTools likely opened (heuristic only)
+(function devtoolsDeterrent(){
+let threshold = 160;
+const blur = () => document.documentElement.style.filter = 'blur(2.5px)';
+const unblur = () => document.documentElement.style.filter = '';
+let last = false;
+function check(){
+const opened = (window.outerWidth - window.innerWidth > threshold) || (window.outerHeight - window.innerHeight > threshold);
+if (opened !== last) { last = opened; if (opened) blur(); else unblur(); }
+requestAnimationFrame(check);
+}
+requestAnimationFrame(check);
+})();
+</script>
+<!-- END: Copy/Download deterrent scripts -->
 </body>
 </html>
