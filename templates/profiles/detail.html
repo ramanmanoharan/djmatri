@@ -877,7 +877,7 @@ img.addEventListener('contextmenu', function(ev){ ev.preventDefault(); }, { pass
 // 6) Optional: blur when DevTools likely opened (heuristic only)
 (function devtoolsDeterrent(){
 let threshold = 160;
-const blur = () => document.documentElement.style.filter = 'blur(2.5px)';
+const blur = () => document.documentElement.style.filter = 'blur(0.1px)';
 const unblur = () => document.documentElement.style.filter = '';
 let last = false;
 function check(){
