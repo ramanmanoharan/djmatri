@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.sista.ai/sdk/latest/smart-agent.min.js"></script>
+    <script>
+        // Initialize the AI assistant
+        const sistaAI = SistaAI.init({
+            apiKey: 'pk-sista-52000a05-9777-424b-bbcc-299640db204b',
+        });
+    </script>
     <style>
         .skiptranslate{
             display: none!important;
@@ -466,6 +473,35 @@ requestAnimationFrame(check);
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
+        SistaAI.init({
+  // Required
+  apiKey: 'pk-sista-52000a05-9777-424b-bbcc-299640db204b',
+
+  // Optional: Core settings
+  userId: 'user-123',
+  scrapeContent: true,
+  autoStart: false,
+  urlStart: true,
+  namespace: 'my-app',
+  debug: 'development',
+  apiUrl: 'https://api.sista.ai',
+
+  // Optional: UI customization
+  tooltip: 'Ask me anything!',
+  stateColors: {
+    STATE_IDLE: '#496CF6',
+    STATE_CONNECTING: '#ff6b6b',
+    STATE_CONNECTED: '#00c853',
+    STATE_DISCONNECTING: '#ff6b6b'
+  },
+  style: {
+    backgroundColor: '#496CF6',
+    borderRadius: '50%',
+    width: '80px',
+    height: '80px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+  }
+});
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
