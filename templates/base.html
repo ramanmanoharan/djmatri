@@ -22,6 +22,12 @@
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
+        .skiptranslate{
+            display: none!important;
+        }
+        .no-select{
+            top:0!important;
+        }
       .ban-search {
         width: 90%;
         position: relative;
@@ -451,6 +457,18 @@ requestAnimationFrame(check);
 requestAnimationFrame(check);
 })();
 </script>
+ <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'ta,en', // Tamil and English
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <!-- END: Copy/Download deterrent scripts -->
 </body>
 </html>
